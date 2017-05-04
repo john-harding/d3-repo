@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>D3 Learning</title>
+    <script src='//d3js.org/d3.v4.min.js' charset='utf-8'></script>
+</head>
+<body>
+    <svg class='chart'></svg>
+
+    <script type='text/javascript'>
+    // run server with: node_modules\.bin\http-server
+    var data = [10, 15, 25];
+    var width = 300;
+    var height = 300;
+
+    var chart = d3.select('.chart')
+        .style('width', width)
+        .style('height', height);
+
+    var bars = chart.selectAll('rect')
+        .data(data)
+        .enter()
+            .append('rect')
+            .style('width', function (d) {return 10 * d;})
+            .style('height', '10');
+    </script>
+</body>
+</html>
