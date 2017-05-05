@@ -3,15 +3,34 @@
 <head>
     <title>D3 Learning</title>
     <script src='//d3js.org/d3.v4.min.js' charset='utf-8'></script>
+    <style type='text/css'>
+    .chart {
+
+    }
+
+    .chart__bar {
+        fill: #0AF;
+    }
+
+    .chart__bar:hover {
+        fill: #05B5FF;
+    }
+    </style>
 </head>
 <body>
     <svg class='chart'></svg>
 
     <script type='text/javascript'>
     // run server with: node_modules\.bin\http-server
-    var data = [10, 15, 25];
+    var data = [10, 15, 25, 12];
     var width = 300;
     var height = 300;
+    var barHeight = 30;
+    var barPadding = 10;
+
+    var scale = d3.scaleLinear()
+        .domain([0, Math.max.apply(null, data)])
+        .range([0, width]);
 
     var chart = d3.select('.chart')
         .style('width', width)
@@ -21,8 +40,13 @@
         .data(data)
         .enter()
             .append('rect')
-            .style('width', function (d) {return 10 * d;})
-            .style('height', '10');
+            .style('width', function (d) {return scale(d);})
+            .style('height', barHeight)
+            .attr('class', 'chart__bar')
+            .attr('x', 0)
+            .attr('y', function (d, i) {
+                return (barHeight + barPadding) * i;
+            });
     </script>
 </body>
 </html>
